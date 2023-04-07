@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(layoutInflater);
-        setContentView(R.layout.activity_main);
+        setContentView(binding.root);
         init();
     }
 
@@ -21,6 +21,9 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             binding.rcView.layoutManager = LinearLayoutManager(this@MainActivity);
             binding.rcView.adapter = adapter;
+            binding.butAddTask.setOnClickListener() {
+                adapter.addTask(MyTask("kek", true));
+            }
         }
     }
 }
