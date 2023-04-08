@@ -6,16 +6,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.databinding.TaskItemBinding
 
-class MyTaskAdapter : RecyclerView.Adapter<MyTaskAdapter.MyTaskHolder>()
+class MyTaskAdapter(val listener : removeListener) : RecyclerView.Adapter<MyTaskAdapter.MyTaskHolder>()
 {
     val taskList = ArrayList<MyTask>();
 
+    var delIt = 0;
     class MyTaskHolder(item : View) : RecyclerView.ViewHolder(item)
     {
         val binding = TaskItemBinding.bind(item);
-        fun bind(task : MyTask)
+        fun bind(task : MyTask, listener: removeListener)
         {
             binding.taskName.text = task.name;
+            binding.buttonDeleteTask.setOnClickListener() {
+                listener.onClick(task);
+            }
         }
     }
 
@@ -27,7 +31,7 @@ class MyTaskAdapter : RecyclerView.Adapter<MyTaskAdapter.MyTaskHolder>()
 
     override fun onBindViewHolder(holder: MyTaskHolder, position: Int)
     {
-        holder.bind(taskList[position]);
+        holder.bind(taskList[position], listener);
     }
 
     override fun getItemCount(): Int
@@ -39,5 +43,18 @@ class MyTaskAdapter : RecyclerView.Adapter<MyTaskAdapter.MyTaskHolder>()
     {
         taskList.add(task);
         notifyDataSetChanged();
+    }
+
+
+    fun removeTask(task : MyTask)
+    {
+        var position = taskList.indexOf(task);
+        taskList.remove(task);
+        notifyItemRemoved(position);
+    }
+
+    interface removeListener
+    {
+        fun onClick(task : MyTask);
     }
 }
