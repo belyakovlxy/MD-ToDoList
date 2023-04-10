@@ -18,6 +18,9 @@ class MyTaskAdapter(val listener : removeListener) : RecyclerView.Adapter<MyTask
         {
             binding.taskName.text = task.name;
             binding.buttonDeleteTask.setOnClickListener() {
+                listener.onClickDelete(task);
+            }
+            binding.taskCard.setOnClickListener() {
                 listener.onClick(task);
             }
         }
@@ -55,6 +58,8 @@ class MyTaskAdapter(val listener : removeListener) : RecyclerView.Adapter<MyTask
 
     interface removeListener
     {
-        fun onClick(task : MyTask);
+        fun onClickDelete(task : MyTask);
+
+        fun onClick(tasl : MyTask);
     }
 }

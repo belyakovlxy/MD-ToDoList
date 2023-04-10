@@ -38,7 +38,13 @@ class MainActivity : AppCompatActivity(), MyTaskAdapter.removeListener {
         }
     }
 
-    override fun onClick(task: MyTask) {
+    override fun onClickDelete(task: MyTask) {
         adapter.removeTask(task);
+    }
+
+    override fun onClick(task: MyTask) {
+        startActivity(Intent(this, TaskInfo::class.java).apply {
+            putExtra("info", task);
+        })
     }
 }
