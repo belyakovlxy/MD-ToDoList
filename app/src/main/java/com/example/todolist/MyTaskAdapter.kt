@@ -1,27 +1,34 @@
 package com.example.todolist
 
+import android.os.Parcel
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.databinding.TaskItemBinding
+import kotlinx.parcelize.Parcelize
+
 
 class MyTaskAdapter(val listener : removeListener) : RecyclerView.Adapter<MyTaskAdapter.MyTaskHolder>()
 {
-    val taskList = ArrayList<MyTask>();
+    var taskList = ArrayList<MyTask>();
 
-    var delIt = 0;
     class MyTaskHolder(item : View) : RecyclerView.ViewHolder(item)
     {
         val binding = TaskItemBinding.bind(item);
         fun bind(task : MyTask, listener: removeListener)
         {
             binding.taskName.text = task.name;
+            binding.taskCheckBox.setChecked(task.isDone)
             binding.buttonDeleteTask.setOnClickListener() {
                 listener.onClickDelete(task);
             }
             binding.taskCard.setOnClickListener() {
                 listener.onClick(task);
+            }
+            binding.taskCheckBox.setOnClickListener() {
+                listener.onCheck(task)
             }
         }
     }
@@ -60,6 +67,8 @@ class MyTaskAdapter(val listener : removeListener) : RecyclerView.Adapter<MyTask
     {
         fun onClickDelete(task : MyTask);
 
-        fun onClick(tasl : MyTask);
+        fun onClick(task : MyTask);
+
+        fun onCheck(task : MyTask)
     }
 }

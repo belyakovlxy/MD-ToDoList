@@ -13,14 +13,48 @@
         <action
             android:id="@+id/action_mainFragment_to_editFragment"
             app:destination="@id/editFragment" />
+        <argument
+            android:name="label"
+            app:argType="string"
+            android:defaultValue=""/>
+        <argument android:name="info"
+            app:argType="string"
+            android:defaultValue=""/>
+        <action
+            android:id="@+id/action_mainFragment_to_taskInfoFragment"
+            app:destination="@id/taskInfoFragment" />
+
     </fragment>
+
     <fragment
         tools:layout="@layout/edit_fragment"
         android:id="@+id/editFragment"
         android:name="com.example.todolist.fragments.EditFragment"
         android:label="EditFragment" >
         <action
-            android:id="@+id/action_editFragment_to_mainFragment"
+            android:id="@+id/action_editFragment_to_mainFragment_byCancel"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_editFragment_to_mainFragment_byAdd"
+            app:destination="@id/mainFragment">
+        </action>
+
+
+    </fragment>
+    <fragment
+        tools:layout="@layout/task_info_fragment"
+        android:id="@+id/taskInfoFragment"
+        android:name="com.example.todolist.fragments.TaskInfoFragment"
+        android:label="TaskInfoFragment" >
+        <action
+            android:id="@+id/action_taskInfoFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <argument
+            android:name="label"
+            app:argType="string"
+            android:defaultValue=""/>
+        <argument android:name="info"
+            app:argType="string"
+            android:defaultValue=""/>
     </fragment>
 </navigation>

@@ -1,6 +1,8 @@
 package com.example.todolist
 
-data class MyTask(val id : Int, val name : String, val info : String) : java.io.Serializable
-{
+import android.os.Parcel
+import android.os.Parcelable
 
+data class MyTask(val name: String, val info: String, var isDone : Boolean)
+{
 }
