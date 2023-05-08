@@ -28,8 +28,8 @@ class TaskInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            binding.taskLabelValue.text = args.info.toString()
-            binding.taskInfoValue.text = args.label.toString()
+            binding.taskLabelValue.text = args.label.toString()
+            binding.taskInfoValue.text = args.info.toString()
             binding.closeButton.setOnClickListener() {
                 MAIN.navController.navigate(R.id.action_taskInfoFragment_to_mainFragment);
             }
