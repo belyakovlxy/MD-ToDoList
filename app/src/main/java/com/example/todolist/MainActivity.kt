@@ -10,10 +10,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
 import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.fragments.EditFragmentDirections
 import com.example.todolist.fragments.MainFragment
 import com.example.todolist.fragments.MainFragmentDirections
+import com.example.todolist.room.AppDatabase
+import com.example.todolist.room.entities.RoomTaskRepository
 
 class MainActivity : AppCompatActivity(), MyTaskAdapter.removeListener {
     lateinit var binding : ActivityMainBinding;
@@ -21,8 +24,15 @@ class MainActivity : AppCompatActivity(), MyTaskAdapter.removeListener {
 
     lateinit var adapter : MyTaskAdapter;
 
+    lateinit var database: AppDatabase
+
+    lateinit var roomTaskRepository : RoomTaskRepository
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
+        database = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database.db").allowMainThreadQueries().build()
+        roomTaskRepository = RoomTaskRepository(database.getTaskDao())
+
         MAIN = this;
         adapter = MyTaskAdapter(this);
         binding = ActivityMainBinding.inflate(layoutInflater);
@@ -52,6 +62,7 @@ class MainActivity : AppCompatActivity(), MyTaskAdapter.removeListener {
         {
             task.isDone = true;
         }
+        MAIN.roomTaskRepository.updateIsDoneTask(task)
     }
 
 

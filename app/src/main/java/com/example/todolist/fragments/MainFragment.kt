@@ -9,10 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.todolist.MAIN
-import com.example.todolist.MyTask
-import com.example.todolist.MyTaskAdapter
-import com.example.todolist.R
+import com.example.todolist.*
 import com.example.todolist.databinding.MainFragmentBinding
 
 

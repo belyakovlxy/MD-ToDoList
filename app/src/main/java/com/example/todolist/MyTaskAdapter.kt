@@ -1,23 +1,21 @@
 package com.example.todolist
 
-import android.os.Parcel
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.databinding.TaskItemBinding
-import kotlinx.parcelize.Parcelize
 
 
 class MyTaskAdapter(val listener : removeListener) : RecyclerView.Adapter<MyTaskAdapter.MyTaskHolder>()
 {
-    var taskList = ArrayList<MyTask>();
+    //var taskList = ArrayList<MyTask>()
+    var taskList = ArrayList(MAIN.roomTaskRepository.getAllTasks());
 
     class MyTaskHolder(item : View) : RecyclerView.ViewHolder(item)
     {
         val binding = TaskItemBinding.bind(item);
-        fun bind(task : MyTask, listener: removeListener)
+        fun bind(task: MyTask, listener: removeListener)
         {
             binding.taskName.text = task.name;
             binding.taskCheckBox.setChecked(task.isDone)
@@ -41,7 +39,7 @@ class MyTaskAdapter(val listener : removeListener) : RecyclerView.Adapter<MyTask
 
     override fun onBindViewHolder(holder: MyTaskHolder, position: Int)
     {
-        holder.bind(taskList[position], listener);
+        holder.bind(taskList.get(position), listener);
     }
 
     override fun getItemCount(): Int
@@ -52,6 +50,7 @@ class MyTaskAdapter(val listener : removeListener) : RecyclerView.Adapter<MyTask
     fun addTask(task : MyTask)
     {
         taskList.add(task);
+        MAIN.roomTaskRepository.addTask(task)
         notifyDataSetChanged();
     }
 
@@ -60,6 +59,7 @@ class MyTaskAdapter(val listener : removeListener) : RecyclerView.Adapter<MyTask
     {
         var position = taskList.indexOf(task);
         taskList.remove(task);
+        MAIN.roomTaskRepository.removeTask(task.name)
         notifyItemRemoved(position);
     }
 

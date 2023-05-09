@@ -1,9 +1,6 @@
 package com.example.todolist.room
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.todolist.MyTask
 import com.example.todolist.room.entities.TaskEntity
 
@@ -11,12 +8,15 @@ import com.example.todolist.room.entities.TaskEntity
 interface TaskDao {
 
     @Query("SELECT * FROM tasks")
-    suspend fun getAllTasks() : List<TaskEntity>?
+    fun getAllTasks() : List<TaskEntity>?
+
+    @Query("UPDATE tasks SET is_done = :isDone WHERE name = :taskName")
+    fun updateTask(taskName: String, isDone: Boolean)
 
     @Insert
-    suspend fun addTask(taskEntity : TaskEntity)
+    fun addTask(taskEntity : TaskEntity)
 
     @Query("DELETE FROM tasks WHERE name = :taskName")
-    suspend fun removeTask(taskName : String)
+    fun removeTask(taskName : String)
 
 }
